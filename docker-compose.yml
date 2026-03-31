@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=${MONGODB_URI}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - PORT=3000
+    restart: always
+
+# To test locally:
+# 1. Run: docker-compose up --build

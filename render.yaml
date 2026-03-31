@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: bharatseva-ai
+    env: node
+    nodeVersion: 20.11.0 # Or your preferred Node version
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build && (if [ -n "$MODEL_DOWNLOAD_URL" ]; then curl -L "$MODEL_DOWNLOAD_URL" -o disease_model.pkl; else echo "Warning: MODEL_DOWNLOAD_URL not set, skipping model download"; fi)
+    startCommand: node server.js # This will now serve both your API and Next.js Frontend
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: MONGODB_URI
+        generateValue: false # You will provide this manually from MongoDB Atlas
+      - key: FRONTEND_URL
+        value: https://bharatseva-ai.onrender.com # Update this once you know your final URL
+
+# Optional: If you want Render to host the DB too (though Atlas is recommended for AI apps)
+# databases:
+#   - name: bharatseva-db
+#     plan: free
+#     databaseName: bharatseva

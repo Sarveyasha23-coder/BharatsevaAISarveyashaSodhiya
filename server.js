@@ -3,9 +3,14 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 const Ajv = require("ajv")
+const next = require("next")
 const { ModelFactory } = require("./models")
 
 dotenv.config()
+
+const dev = process.env.NODE_ENV !== "production"
+const nextApp = next({ dev })
+const handle = nextApp.getRequestHandler()
 
 const app = express()
 
@@ -14,13 +19,13 @@ app.set('trust proxy', 1);
 
 // Secure CORS for production
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || "*", // Set this to your Vercel URL later
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 };
 
 app.use(cors(corsOptions))
-app.use(express.json())
+app.use(express.json({ limit: '10mb' })) // Increased limit for AI document data
 app.use(express.urlencoded({ extended: true }))
 
 // Initialize Validation
@@ -29,7 +34,14 @@ const factory = new ModelFactory();
 
 // Database Connection
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/bharatseva";
-mongoose.connect(MONGODB_URI, { dbName: 'bharatseva' })
+mongoose.connect(MONGODB_URI, { 
+    dbName: 'bharatseva',
+    serverSelectionTimeoutMS: 5000,
+    connectTimeoutMS: 10000,
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    heartbeatFrequencyMS: 10000, // Check server health every 10 seconds
+    family: 4
+})
     .then(() => {
         const host = mongoose.connection.host;
         console.log(`Connected to MongoDB: ${host.includes('mongodb.net') ? 'Atlas' : 'Local'}`);
@@ -165,6 +177,11 @@ app.post("/api/survey/submit", async (req, res, next) => {
     }
 });
 
+// Next.js Handler: Handle all routes not caught by Express API
+app.all("*", (req, res) => {
+    return handle(req, res);
+});
+
 // 404 Handler for undefined routes
 app.use((req, res) => {
     res.status(404).json({ error: "Route not found" });
@@ -182,10 +199,13 @@ process.on("SIGINT", async () => {
     process.exit(0);
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>{
-    console.log(`
+const PORT = process.env.PORT || 10000;
+
+nextApp.prepare().then(() => {
+    app.listen(PORT, () => {
+        console.log(`
 🚀 Server running on port ${PORT}
 🌐 Environment: ${process.env.NODE_ENV || 'development'}
-    `);
-})
+        `);
+    });
+});
