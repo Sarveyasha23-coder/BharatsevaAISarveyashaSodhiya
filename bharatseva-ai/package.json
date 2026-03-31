@@ -1,0 +1,41 @@
+{
+  "name": "bharatseva-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "..\\node_modules\\.bin\\eslint.cmd app components lib models --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "framer-motion": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.400.0",
+    "mongoose": "^8.0.0",
+    "multer": "^1.4.5",
+    "next": "14.2.5",
+    "node-fetch": "^3.3.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "swr": "^2.2.5",
+    "tesseract.js": "^5.0.4",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

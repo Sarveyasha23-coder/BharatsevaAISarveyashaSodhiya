@@ -1,0 +1,51 @@
+{
+  "name": "Bharat Seva AI",
+  "short_name": "BharatSevaAI",
+  "description": "AI-powered government services platform for Indian citizens",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["government", "productivity", "utilities"],
+  "lang": "hi",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Scheme Advisor",
+      "short_name": "Schemes",
+      "description": "Find government schemes",
+      "url": "/schemes",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Voice Assistant",
+      "short_name": "Voice",
+      "description": "AI voice assistant",
+      "url": "/voice",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Fraud Shield",
+      "short_name": "Security",
+      "description": "Check for scams",
+      "url": "/fraud",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}
