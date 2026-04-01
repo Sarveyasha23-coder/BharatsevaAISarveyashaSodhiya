@@ -212,7 +212,7 @@ export function BharatSevaApp() {
     <main className="page-shell">
       <section className="hero-panel">
         <div className="hero-copy">
-          <span className="eyebrow">India 2026-ready civic AI</span>
+          <span className="eyebrow">India 2026-ready civic AI Built by Sarveyasha Sodhiya</span>
           <h1>
             BharatSeva AI turns government schemes into a 10-second
             voice-to-application journey.
